@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created by EalenXie on 2018/6/4 14:09
  * 这里个人示例,可自定义相关属性
  */
 @Entity

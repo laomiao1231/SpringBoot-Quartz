@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- * Created by EalenXie on 2018/6/4 11:02
  * Quartz的核心配置类
  */
 @Configuration
