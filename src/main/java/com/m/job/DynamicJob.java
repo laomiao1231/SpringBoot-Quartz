@@ -25,7 +25,6 @@ public class DynamicJob implements Job {
 
     /**
      * 核心方法,Quartz Job真正的执行逻辑.
-     *
      * @param executorContext executorContext JobExecutionContext中封装有Quartz运行所需要的所有信息
      * @throws JobExecutionException execute()方法只允许抛出JobExecutionException异常
      */
