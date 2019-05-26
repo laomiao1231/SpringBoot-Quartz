@@ -1,0 +1,42 @@
+quartz:
+  enabled: true
+server:
+  port: 9090
+spring:
+  application:
+    name: Spring-Quartz-Scheduler                                       #Quartz调度中心
+  datasource:
+    url: jdbc:mysql://localhost:3306/any?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=true
+    username: root
+    password: root
+    tomcat:
+      initialSize: 20
+      maxActive: 100
+      maxIdle: 100
+      minIdle: 20
+      maxWait: 10000
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+  quartz:
+    #相关属性配置
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: clusteredScheduler
+            instanceId: AUTO
+        jobStore:
+          class: org.quartz.impl.jdbcjobstore.JobStoreTX
+          driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+          tablePrefix: QRTZ_
+          isClustered: true
+          clusterCheckinInterval: 10000
+          useProperties: false
+        threadPool:
+          class: org.quartz.simpl.SimpleThreadPool
+          threadCount: 10
+          threadPriority: 5
+          threadsInheritContextClassLoaderOfInitializingThread: true
+      #数据库方式
+    job-store-type: jdbc
