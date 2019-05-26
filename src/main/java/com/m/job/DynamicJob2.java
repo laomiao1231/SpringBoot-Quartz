@@ -31,7 +31,6 @@ public class DynamicJob2 implements Job {
      */
     @Override
     public void execute(JobExecutionContext executorContext) throws JobExecutionException {
-        log.info("**************************111111111111111111111");
         //JobDetail中的JobDataMap是共用的,从getMergedJobDataMap获取的JobDataMap是全新的对象
         JobDataMap map = executorContext.getMergedJobDataMap();
         String jarPath = map.getString("jarPath");
@@ -40,17 +39,16 @@ public class DynamicJob2 implements Job {
         log.info("Running Job description : {}", map.getString("jobDescription"));
         log.info("Running Job group: {} ", map.getString("group"));
         log.info(String.format("Running Job cron : %s", map.getString("cronExpression")));
-        log.info("Running Job jar path : {} ", jarPath);
-        log.info("Running Job parameter : {} ", parameter);
+        log.info("Running Job jar path: {} ", jarPath);
+        log.info("Running Job parameter: {} ", parameter);
         long startTime = System.currentTimeMillis();
-
         long endTime = System.currentTimeMillis();
         log.info(">>>>>>>>>>>>> Running Job has been completed , cost time : {}ms\n ", (endTime - startTime));
     }
 
     //记录Job执行内容
     private void logProcess(InputStream inputStream, InputStream errorStream) throws IOException {
-        String inputLine;
+        String inputLine = null;
         String errorLine;
         BufferedReader inputReader = new BufferedReader(new InputStreamReader(inputStream));
         BufferedReader errorReader = new BufferedReader(new InputStreamReader(errorStream));

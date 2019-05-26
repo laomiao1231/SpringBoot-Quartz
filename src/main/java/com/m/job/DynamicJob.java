@@ -31,7 +31,6 @@ public class DynamicJob implements Job {
      */
     @Override
     public void execute(JobExecutionContext executorContext) throws JobExecutionException {
-        log.info("**************************111111111111111111111");
         //JobDetail中的JobDataMap是共用的,从getMergedJobDataMap获取的JobDataMap是全新的对象
         JobDataMap map = executorContext.getMergedJobDataMap();
         String jarPath = map.getString("jarPath");
