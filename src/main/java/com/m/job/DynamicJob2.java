@@ -12,7 +12,6 @@ import java.io.InputStreamReader;
 import java.util.Objects;
 
 /**
- * Created by EalenXie on 2018/6/4 14:29
  * :@DisallowConcurrentExecution : 此标记用在实现Job的类上面,意思是不允许并发执行.
  * :注意org.quartz.threadPool.threadCount线程池中线程的数量至少要多个,否则@DisallowConcurrentExecution不生效
  * :假如Job的设置时间间隔为3秒,但Job执行时间是5秒,设置@DisallowConcurrentExecution以后程序会等任务执行完毕以后再去执行,否则会在3秒时再启用新的线程执行
@@ -44,16 +43,6 @@ public class DynamicJob2 implements Job {
         long startTime = System.currentTimeMillis();
         long endTime = System.currentTimeMillis();
         log.info(">>>>>>>>>>>>> Running Job has been completed , cost time : {}ms\n ", (endTime - startTime));
-    }
-
-    //记录Job执行内容
-    private void logProcess(InputStream inputStream, InputStream errorStream) throws IOException {
-        String inputLine = null;
-        String errorLine;
-        BufferedReader inputReader = new BufferedReader(new InputStreamReader(inputStream));
-        BufferedReader errorReader = new BufferedReader(new InputStreamReader(errorStream));
-        while (Objects.nonNull(inputLine = inputReader.readLine())) log.info(inputLine);
-        while (Objects.nonNull(errorLine = errorReader.readLine())) log.error(errorLine);
     }
 
 }

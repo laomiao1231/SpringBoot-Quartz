@@ -26,11 +26,10 @@ public class DynamicJobService {
     public JobDataMap getJobDataMap(JobEntity job) {
         JobDataMap map = new JobDataMap();
         map.put("name", job.getName());
-        map.put("jobGroup", job.getJobGroup());
+        map.put("group", job.getJobGroup());
         map.put("cronExpression", job.getCron());
         map.put("parameter", job.getParameter());
         map.put("jobDescription", job.getDescription());
-        map.put("vmParam", job.getVmParam());
         map.put("jarPath", job.getJarPath());
         map.put("status", job.getStatus());
         return map;
