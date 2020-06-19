@@ -1,4 +1,4 @@
-package com.m.bo;
+package com.m.init;
 
 import com.m.entity.JobEntity;
 import com.m.service.DynamicJobService;

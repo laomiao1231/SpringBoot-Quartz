@@ -22,6 +22,13 @@ public class DynamicJobService {
         return list;
     }
 
+
+    //通过Id获取Job
+    public JobEntity getJobEntityById(Integer id) {
+        return repository.getById(id);
+    }
+
+
     //获取JobDataMap.(Job参数对象)
     public JobDataMap getJobDataMap(JobEntity job) {
         JobDataMap map = new JobDataMap();

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface JobEntityRepository extends CrudRepository<JobEntity, Long> {
-
+    JobEntity getById(Integer id);
 }
