@@ -36,6 +36,10 @@ public class JobController {
         JobEntity entity = jobService.getJobEntityById(id);
         if (Objects.isNull(entity)) return "error: id is not exist ";
         synchronized (log) {
+            if ("CLOSE".equals(entity.getStatus())) {
+                entity.setStatus("OPEN");
+                repository.save(entity);
+            }
             JobKey jobKey = jobService.getJobKey(entity);
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
             scheduler.pauseJob(jobKey);
@@ -87,6 +91,35 @@ public class JobController {
             }
         }
         return "modify success";
+    }
+
+    @GetMapping("/remove/{id}")
+    public String removeJob(@PathVariable("id") @NotNull Integer id) {
+        JobEntity job = jobService.getJobEntityById(id);
+        if (job.getStatus().equals("OPEN")) {
+            String jobName = job.getName();
+            String groupName = job.getJobGroup();
+            TriggerKey triggerKey = TriggerKey.triggerKey(jobName, groupName);
+            JobKey jobKey = JobKey.jobKey(jobName, groupName);
+            try {
+                Scheduler scheduler = schedulerFactoryBean.getScheduler();
+                Trigger trigger = scheduler.getTrigger(triggerKey);
+                if (trigger == null) {
+                    return "this job is not exist";
+                }
+                scheduler.pauseTrigger(triggerKey);// 停止触发器
+                scheduler.unscheduleJob(triggerKey);// 移除触发器
+                scheduler.deleteJob(jobKey);// 删除任务
+                job.setStatus("CLOSE");
+                repository.save(job);
+                return "this job " + jobName + " close";
+            } catch (Exception e) {
+                log.error("printStackTrace", e);
+                return "this job " + jobName + " close failure";
+            }
+        } else {
+            return "this job already close";
+        }
     }
 
 
